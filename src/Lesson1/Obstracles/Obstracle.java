@@ -1,5 +1,7 @@
-package Lesson1;
+package Lesson1.Obstracles;
 
-    public abstract class Obstracle {
+import Lesson1.Competitors.Competitor;
+
+public abstract class Obstracle {
         public abstract void doIt (Competitor competitor);
 }
