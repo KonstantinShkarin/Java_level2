@@ -1,4 +1,4 @@
-package Lesson1;
+package Lesson1.Competitors;
 
 public class Dog extends Animal {
     public Dog(String name) {

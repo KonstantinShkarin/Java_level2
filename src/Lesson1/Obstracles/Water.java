@@ -1,6 +1,7 @@
 package Lesson1.Obstracles;
 
 import Lesson1.Competitors.Competitor;
+import Lesson1.Obstracles.Obstracle;
 
 public class Water extends Obstracle {
     int length;
