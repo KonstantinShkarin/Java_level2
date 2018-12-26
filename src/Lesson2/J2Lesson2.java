@@ -16,7 +16,7 @@ public class J2Lesson2 {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr.length; j++) {
                 numbers[i][j] = Integer.parseInt(arr[i][j]);
-                    if (arr[i][j].matches("-?\\d+(\\.\\d+)?")) {
+                    if (!arr[i][j].matches("-?\\d+(\\.\\d+)?")) {
                         throw new MyArrayDataException("Не удалось выполнить преобразование", numbers[i][j]);
                 }
                 sum = sum + numbers[i][j];
