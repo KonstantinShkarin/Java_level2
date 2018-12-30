@@ -51,14 +51,17 @@ public class Main {
 
 
 
-      PhoneBookNew phoneBookNew = new PhoneBookNew();
+     PhoneBookNew phoneBookNew = new PhoneBookNew();
+     phoneBookNew.addContact("Ivanov",new Phones("324332"));
+     phoneBookNew.addContact("Sidorov",new Phones("567962"));
+     phoneBookNew.addContact("Ivanov",new Phones("789689"));
+     phoneBookNew.addContact("Petrov",new Phones("498698"));
 
-      phoneBookNew.add ("Ivanov", 567893);
-      phoneBookNew.add ("Petrov", 467892);
-      phoneBookNew.add ("Sidorov", 6784367);
 
-      phoneBookNew.getName();
-      
+     phoneBookNew.getName("Ivanov");
+
+
+
 
         }
     }
