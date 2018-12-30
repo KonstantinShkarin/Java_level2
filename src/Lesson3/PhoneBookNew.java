@@ -10,8 +10,8 @@ public class PhoneBookNew {
         contact = new TreeMap<>();
     }
 
-    public void addContact(String name, Phones number){
-        contact.put(name, number);
+    public void addContact(String name, Phones phone){
+        contact.put(name, phone);
     }
 
 
