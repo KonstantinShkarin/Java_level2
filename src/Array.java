@@ -29,7 +29,7 @@ public class Array {
             @Override
             public void run() {
                 for (int i = 0; i <a1.length ; i++) {
-                    a1[i] = (float)(arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+                    a1[i] = (float)(a1[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
                 }
             }
         });
@@ -44,7 +44,7 @@ public class Array {
             @Override
             public void run() {
                 for (int i = 0; i <a2.length ; i++) {
-                    a2[i] = (float)(arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+                    a2[i] = (float)(a2[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
                 }
             }
         });
