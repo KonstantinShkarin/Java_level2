@@ -1,3 +1,5 @@
+package Client;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,19 +10,30 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Client {
-    private Socket socket;
-    private DataOutputStream out;
-    private DataInputStream in;
-    private JFrame chatFrame;
-    private JPanel panelChat;
-    private JButton sendButton;
-    private JLabel areaLable, fieldWriteLable;
-    private JTextArea chatArea;
-    private JTextField fieldWrite;
-    private JScrollPane scrollPane;
+class Chat {
 
-    public void ChatWindow() {
+    JFrame chatFrame;
+    JPanel panelChat;
+    JButton sendButton;
+    JLabel areaLable, fieldWriteLable;
+    JTextArea chatArea;
+    JTextField fieldWrite;
+    JScrollPane scrollPane;
+    Socket socket;
+    DataInputStream in;
+    DataOutputStream out;
+    final  String IP_ADRESS = "localhost";
+    final int PORT = 5000;
+    String str;
+
+
+    public static void main(String[] args) {
+        Chat chat = new Chat();
+        chat.go();
+    }
+
+    public void go() {
+
         chatFrame = new JFrame("Сетевой чат");
         panelChat = new JPanel();
         areaLable = new JLabel("История:");
@@ -53,45 +66,70 @@ public class Client {
         chatFrame.setVisible(true);
         chatFrame.setResizable(false);
         chatFrame.getContentPane().setBackground(Color.lightGray);
-    }
-    public void addText () {
 
-
-
-            ArrayList<String> chatHistory = new ArrayList<>();
-            String fieldWriteGetText = fieldWrite.getText();
-
-            chatHistory.add(fieldWriteGetText);
         try {
-            out.writeUTF(fieldWriteGetText);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        fieldWrite.setText("");
-        fieldWrite.requestFocus();
-
-        }
-
-         class SendListener implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addText();
-            }
-        }
-         class FieldWriteListener implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e) { addText();
-            }
-        }
-
-    public void connectClient(){
-        try {
-            socket = new Socket("127.0.0.1", 5000);
-            in = new DataInputStream(socket.getInputStream());
+            socket = new Socket(IP_ADRESS,PORT);
+            in =  new DataInputStream (socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        while (true){
+                             str = in.readUTF();
+                             if (str.equals("/end"))
+                                 break;
+                             chatArea.append(str+"\n");
+
+                    }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        try {
+                            socket.close();
+                        } catch (IOException e) {e.printStackTrace();
+
+                        }
+                    }
+
+                }
+            }).start();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void addText() {
+//        ArrayList<String> chatHistory = new ArrayList<>();
+//        String fieldWriteGetText = fieldWrite.getText();
+//
+//        chatHistory.add(fieldWriteGetText);
+//
+//        chatArea.append(chatHistory.toString() + "\n");
+//        fieldWrite.setText("");
+
+        //chatArea.append(fieldWrite.getText() +"\n");
+        try {
+            out.writeUTF(fieldWrite.getText());
+            fieldWrite.setText("");
+            fieldWrite.requestFocus();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public class SendListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            addText();
+        }
+    }
+
+    public class FieldWriteListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) { addText();
+        }
+    }
 }
